@@ -4,13 +4,14 @@ import ssl
 import urllib2
 import mechanize
 import re
-import networkx
+import networkx as nx
+import matplotlib.pyplot as plt
 
 pat = re.compile('^(http(.)?://)([^/])*?([^.])*?(.htm(l)?|/)?$')  # DNT!!!
 seed = unicode('http://info.cern.ch/')  # The home of the first page on the web.
 queue = [seed]
 links = {seed}
-G = networkx.MultiGraph()
+G = nx.MultiGraph()
 while len(queue) > 0:
     browser = mechanize.Browser()
     browser.set_handle_robots(False)
@@ -33,7 +34,14 @@ while len(queue) > 0:
         print "\t" + str(error)
         # pass
     finally:
-        networkx.draw_networkx(G)
+        nx.draw_networkx(G,
+                         pos=nx.spring_layout(G),
+                         with_labels=False,
+                         font_weight='bold',
+                         node_size=2,
+                         width=0.1,
+                         style='dotted')
+        plt.show()
         browser.close()
     del queue[0]
     sleep(0.001)
