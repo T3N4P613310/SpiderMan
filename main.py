@@ -39,7 +39,8 @@ while len(queue) > 0:
                          with_labels=False,
                          font_weight='bold',
                          node_size=2,
-                         width=0.1,
+                         linewidths=None,
+                         width=0.2,
                          style='dotted')
         plt.show()
         browser.close()
