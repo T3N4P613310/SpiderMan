@@ -12,6 +12,7 @@ seed = unicode('http://info.cern.ch/')  # The home of the first page on the web.
 queue = [seed]
 links = {seed}
 G = nx.MultiGraph()
+plt.ion()
 while len(queue) > 0:
     browser = mechanize.Browser()
     browser.set_handle_robots(False)
@@ -30,6 +31,7 @@ while len(queue) > 0:
                 if lnk not in links:
                     queue.append(lnk)
                     links.add(lnk)
+            plt.pause(0.001)
     except (mechanize.HTTPError, mechanize.URLError, ssl.CertificateError, ssl.SSLError, urllib2.URLError) as error:
         print "\t" + str(error)
         # pass
@@ -42,7 +44,9 @@ while len(queue) > 0:
                          linewidths=None,
                          width=0.2,
                          style='dotted')
-        plt.show()
+        plt.pause(0.5)
         browser.close()
     del queue[0]
     sleep(0.001)
+while True:
+    plt.pause(0.05)
