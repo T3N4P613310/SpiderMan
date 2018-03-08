@@ -31,7 +31,7 @@ while len(queue) > 0:
                 if lnk not in links:
                     queue.append(lnk)
                     links.add(lnk)
-            plt.pause(0.001)
+            plt.pause(0.01)
     except (mechanize.HTTPError, mechanize.URLError, ssl.CertificateError, ssl.SSLError, urllib2.URLError) as error:
         print "\t" + str(error)
         # pass
